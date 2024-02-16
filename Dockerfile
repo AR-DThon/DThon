@@ -1,22 +1,15 @@
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~# CatUserBot #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-# Copyright (C) 2020-2023 by TgCatUB@Github.
+FROM AR-DThon/DThon:slim-buster
 
-# This file is part of: https://github.com/TgCatUB/catuserbot
-# and is released under the "GNU v3.0 License Agreement".
+#clonning repo 
+RUN git clone https://github.com/AR-DThon/DThon.git /root/userbot
+#working directory 
+WORKDIR /root/userbot
 
-# Please see: https://github.com/TgCatUB/catuserbot/blob/master/LICENSE
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-
-FROM catub/core:bullseye
-
-# Working directory 
-WORKDIR /userbot
-
-# Timezone
-ENV TZ=Asia/Kolkata
-
-## Copy files into the Docker image
-COPY . .
+# Install requirements
+RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
+RUN apt-get install -y nodejs
+RUN npm i -g npm
+RUN pip3 install --no-cache-dir -r requirements.txt
 
 ENV PATH="/home/userbot/bin:$PATH"
 
